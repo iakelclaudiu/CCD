@@ -51,11 +51,11 @@ class Navigator {
         transaction.commit();
     }
 
-    private boolean isEmpty(String string){
-        if(string==null || string.isEmpty()){
-            return true;
-        }
-
-        return false;
+    void showDashBoard(){
+        FragmentTransaction transaction;
+        transaction = mContext.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, new DashboardFragment());
+        transaction.addToBackStack(Contract.mDashBoard);
+        transaction.commit();
     }
 }

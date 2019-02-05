@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class LoginResponse {
 
     @SerializedName("result")
-    String mResult;
+    private String mResult;
 
     String getResult(){
         return mResult;

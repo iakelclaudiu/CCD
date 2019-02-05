@@ -2,22 +2,22 @@ package ro.utcluj.ikl.ccd;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginBoddy {
+public class LoginBoddy<T> {
 
     @SerializedName("jsonrpc")
     private String mJsonPrc="2.0";
 
     @SerializedName("method")
-    private String mMethod="user.login";
+    private String mMethod;
 
     @SerializedName("params")
-    private Params mParams;
+    private T mParams;
 
     @SerializedName("id")
-    private String mId;
+    private int mId=1;
 
     @SerializedName("auth")
-    private String mAuth="null";
+    private String mAuth=null;
 
     public String getmJsonPrc() {
         return mJsonPrc;
@@ -35,19 +35,19 @@ public class LoginBoddy {
         this.mMethod = mMethod;
     }
 
-    public Params getmParams() {
+    public T getmParams() {
         return mParams;
     }
 
-    public void setmParams(Params mParams) {
+    public void setmParams(T mParams) {
         this.mParams = mParams;
     }
 
-    public String getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(String mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

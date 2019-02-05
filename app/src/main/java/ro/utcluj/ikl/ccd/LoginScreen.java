@@ -52,7 +52,7 @@ public class LoginScreen extends Fragment {
         Button button1=getActivity().findViewById(R.id.login_button) ;
         button1.setOnClickListener(view1 -> {
             ServiceImpl implementation=new ServiceImpl();
-            implementation.logIn("tickets","puBCLjkLqHj8ycs");
+            implementation.logIn("guest","");
         });
 
 

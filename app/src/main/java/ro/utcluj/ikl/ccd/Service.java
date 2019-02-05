@@ -1,11 +1,14 @@
 package ro.utcluj.ikl.ccd;
 
-import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface Service {
 
-    @POST("api_jsonrpc.php")
-    Observable<LoginResponse> getLoginResponse(@Body String body);
+    @POST("zabbix/api_jsonrpc.php")
+    Call<LoginResponse> getLoginResponse(@Body LoginBoddy body);
+
+    @POST("zabbix/api_jsonrpc.php")
+    Call<ListResponse> getEventList(@Body LoginBoddy body);
 }

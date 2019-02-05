@@ -3,66 +3,73 @@ package ro.utcluj.ikl.ccd;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ServiceImpl {
 
-    private Service mService;
-    private String mUrl="http://192.168.71.44/";
-    private String mPublicUrl ="https://zabbix.org/zabbix";
-
 
     ServiceImpl(){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
-        Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl(mUrl)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        mService=retrofit.create(Service.class);
     }
 
     void logIn(String username, String password){
-        LoginBoddy body=new LoginBoddy();
+        LoginBoddy<Params> body=new LoginBoddy();
         Params params=new Params();
+        body.setmMethod("user.login");
         body.setmParams(params);
         body.getmParams().setmPassword(password);
         body.getmParams().setmUser(username);
-        Gson gson = new Gson();
-        String stringBody= gson.toJson(body);
-        Log.d("Petrea",stringBody);
 
-       mService.getLoginResponse(stringBody).subscribeOn(Schedulers.newThread())
-               .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<LoginResponse>() {
-           @Override
-           public void onSubscribe(Disposable d) {
+        Call<LoginResponse> response=RetrofitUtils.getRetrofitUtilis().getApiInterface().getLoginResponse(body);
+        response.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if(response.isSuccessful()){
+                    ClientManager.getManager().setSessionKey(response.body().getResult());
+                    getList();
+                }
+                Log.e(this.getClass().toString(),"Password or username incorrect");
+            }
 
-           }
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
 
-           @Override
-           public void onNext(LoginResponse value) {
-               Log.d("Petrea","onNext");
-           }
+            }
+        });
 
-           @Override
-           public void onError(Throwable e) {
-               Log.d("Petrea","onError");
+    }
 
-           }
+    private void getList(){
+        LoginBoddy<ListRequestParams> body=new LoginBoddy();
+        body.setmMethod("event.get");
+        body.setmAuth(ClientManager.getManager().getSessionKey());
+        ListRequestParams params=new ListRequestParams();
+        params.setmOutput("extend");
+        params.setmTimeFrom("1546300800");
+        params.setmTimeTo("1549395698");
+        String[] sorted={"clock", "eventid"};
+        params.setmSortedField(sorted);
+        params.setmSortOrder("desc");
+        body.setmParams(params);
 
-           @Override
-           public void onComplete() {
-           }
-       });
+        Call<ListResponse> response=RetrofitUtils.getRetrofitUtilis().getApiInterface().getEventList(body);
+        response.enqueue(new Callback<ListResponse>() {
+            @Override
+            public void onResponse(Call<ListResponse> call, Response<ListResponse> response) {
+                if(response.isSuccessful()) {
+                    Navigator.getInstance().showDashBoard();
+                    ClientManager.getManager().setmListResponse(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ListResponse> call, Throwable t) {
+
+            }
+        });
     }
 }
