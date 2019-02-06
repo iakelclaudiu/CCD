@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Navigator.getInstance().setContext(this);
 
-        Navigator.getInstance().showLogin();
+        Navigator.getInstance().startApp();
 
     }
 }

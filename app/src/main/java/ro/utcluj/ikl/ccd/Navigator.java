@@ -24,23 +24,29 @@ class Navigator {
         mContext = context;
     }
 
-    void showLogin() {
+    void startApp(){
         SharedPreferences loginPrefs;
         loginPrefs = mContext.getSharedPreferences(Contract.mLoginSaves, Context.MODE_PRIVATE);
         boolean autoLogin = loginPrefs.getBoolean(Contract.mAutoLogin, false);
         String username= loginPrefs.getString(Contract.mUsername,"");
         String password=loginPrefs.getString(Contract.mPassword,"");
-        String server=loginPrefs.getString(Contract.mServer,"");
 
 
-       // if(!autoLogin&&isEmpty(username)&&isEmpty(password)&&isEmpty(server)){
+        if(!username.isEmpty() || !password.isEmpty()){
+            if(autoLogin){
+                ServiceImpl implementation = new ServiceImpl();
+                implementation.logIn(username,password);
+            }
+        }
+        showLogin();
+    }
+
+    void showLogin() {
             FragmentTransaction transaction;
             transaction = mContext.getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.container, new LoginScreen());
             transaction.addToBackStack(Contract.mLogin);
             transaction.commit();
-       // }
-
     }
 
     void showLoginSettings(){
@@ -56,6 +62,14 @@ class Navigator {
         transaction = mContext.getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, new DashboardFragment());
         transaction.addToBackStack(Contract.mDashBoard);
+        transaction.commit();
+    }
+
+    void showHosts(){
+        FragmentTransaction transaction;
+        transaction = mContext.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, new HostsFragment());
+        transaction.addToBackStack(Contract.mHostsDash);
         transaction.commit();
     }
 }

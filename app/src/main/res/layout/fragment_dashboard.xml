@@ -28,7 +28,8 @@
             android:layout_weight="4"
             android:text="Problems"
             android:textAlignment="center"
-            android:textSize="26dp" />
+            android:textSize="26dp"
+            android:textColor="@android:color/white"/>
 
         <ImageButton
             android:id="@+id/problemsRefresh"

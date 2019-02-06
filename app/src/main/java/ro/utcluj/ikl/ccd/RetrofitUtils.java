@@ -1,5 +1,8 @@
 package ro.utcluj.ikl.ccd;
 
+
+import android.content.SharedPreferences;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -7,7 +10,10 @@ public class RetrofitUtils {
 
     private static RetrofitUtils retrofitUtilis;
 
+
+
     private Service apiInterface;
+
 
     public static RetrofitUtils getRetrofitUtilis() {
         if (retrofitUtilis == null) {
@@ -22,7 +28,7 @@ public class RetrofitUtils {
 
     private RetrofitUtils() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://zabbix.org/")
+                .baseUrl("http://192.168.71.44/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
         apiInterface = retrofit.create(Service.class);

@@ -6,6 +6,7 @@ public class ClientManager {
 
     private String mSessionKey="";
     private ListResponse mListResponse;
+    private HostResponse mHostResponse;
 
     public static ClientManager getManager() {
         if (retrofitUtilis == null) {
@@ -28,5 +29,13 @@ public class ClientManager {
 
     public void setmListResponse(ListResponse mListResponse) {
         this.mListResponse = mListResponse;
+    }
+
+    public HostResponse getmHostResponse() {
+        return mHostResponse;
+    }
+
+    public void setmHostResponse(HostResponse mHostResponse) {
+        this.mHostResponse = mHostResponse;
     }
 }

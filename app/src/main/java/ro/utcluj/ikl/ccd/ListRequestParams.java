@@ -7,11 +7,11 @@ public class ListRequestParams {
     @SerializedName("output")
     private String mOutput;
 
-    @SerializedName("time_from")
-    private String mTimeFrom;
+    @SerializedName("selectAcknowledges")
+    private String mselectAcknowledges;
 
-    @SerializedName("time_till")
-    private String mTimeTo;
+    @SerializedName("recent")
+    private String mRecent;
 
     @SerializedName("sortfield")
     private String[] mSortedField;
@@ -27,20 +27,20 @@ public class ListRequestParams {
         this.mOutput = mOutput;
     }
 
-    public String getmTimeFrom() {
-        return mTimeFrom;
+    public String getmselectAcknowledges() {
+        return mselectAcknowledges;
     }
 
-    public void setmTimeFrom(String mTimeFrom) {
-        this.mTimeFrom = mTimeFrom;
+    public void setmselectAcknowledges(String mTimeFrom) {
+        this.mselectAcknowledges = mTimeFrom;
     }
 
-    public String getmTimeTo() {
-        return mTimeTo;
+    public String getmRecent() {
+        return mRecent;
     }
 
-    public void setmTimeTo(String mTimeTo) {
-        this.mTimeTo = mTimeTo;
+    public void setmRecent(String mRecent) {
+        this.mRecent = mRecent;
     }
 
     public String[] getmSortedField() {

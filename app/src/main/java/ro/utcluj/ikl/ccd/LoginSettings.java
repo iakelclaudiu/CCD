@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,14 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 
 
 public class LoginSettings extends Fragment {
 
     private SharedPreferences mSharedPrefs;
-    private CheckBox mCheckbox;
-    private CheckBox mCheckBox1;
+    private CheckBox mloginAuto;
+    private CheckBox mTicket;
     private Button mButton;
     private EditText mEditText;
 
@@ -38,40 +40,66 @@ public class LoginSettings extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCheckBox1=getActivity().findViewById(R.id.loginAuto);
-        mCheckbox = getActivity().findViewById(R.id.ticketCredentials);
+        mloginAuto=getActivity().findViewById(R.id.loginAuto);
+        mTicket = getActivity().findViewById(R.id.ticketCredentials);
         mButton=getActivity().findViewById(R.id.loginSettingsSave);
         mEditText=getActivity().findViewById(R.id.inputServer);
 
-        boolean ticket=mSharedPrefs.getBoolean(Contract.mTicketCreds,false);
-        mCheckbox.setChecked(ticket);
 
-        boolean autoLogin=mSharedPrefs.getBoolean(Contract.mAutoLogin,false);
-        mCheckBox1.setChecked(autoLogin);
 
-        String server=mSharedPrefs.getString(Contract.mServer,"");
-        mEditText.setText(server);
+        mTicket.setChecked(mSharedPrefs.getBoolean(Contract.mTicketCreds,false));
+        mloginAuto.setChecked(mSharedPrefs.getBoolean(Contract.mAutoLogin,false));
+        mEditText.setClickable(false);
 
-        setValues();
+        SharedPreferences.Editor editor = mSharedPrefs.edit();
+
+        mTicket.setOnClickListener(view1 -> {
+            if(mTicket.isChecked()){
+                editor.putString(Contract.mUsername,"tickets");
+                editor.putString(Contract.mPassword,"puBCLjkLqHj8ycs");
+                editor.putBoolean(Contract.mAutoLogin,true);
+                editor.apply();
+                mloginAuto.setChecked(true);
+                mloginAuto.setClickable(false);
+            }else{
+                editor.remove(Contract.mUsername);
+                editor.remove(Contract.mPassword);
+                mloginAuto.setClickable(true);
+                editor.apply();
+            }
+        });
+
+
+        //setValues();
     }
 
     private void setValues() {
-        mCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mTicket.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 SharedPreferences.Editor editor = mSharedPrefs.edit();
 
-                if (checked && mSharedPrefs != null) {
+                if (checked) {
+
                     editor.putBoolean(Contract.mTicketCreds, true);
-                } else {
+                    editor.putBoolean(Contract.mAutoLogin,true);
+                    editor.putString(Contract.mUsername,"tickets");
+                    editor.putString(Contract.mPassword,"puBCLjkLqHj8ycs");
+                    mloginAuto.setChecked(true);
+                    mloginAuto.setClickable(false);
+                } else if(!checked) {
+                    Log.d("IKLtest", "onCheckedChanged: false");
                     editor.putBoolean(Contract.mTicketCreds, false);
+                    editor.putString(Contract.mUsername,"");
+                    editor.putString(Contract.mPassword,"");
+                    mloginAuto.setClickable(true);
                 }
 
                 editor.apply();
             }
         });
 
-        mCheckBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        mloginAuto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 SharedPreferences.Editor editor = mSharedPrefs.edit();
@@ -90,6 +118,7 @@ public class LoginSettings extends Fragment {
                 SharedPreferences.Editor editor = mSharedPrefs.edit();
                 editor.putString(Contract.mServer,mEditText.getText().toString());
                 editor.apply();
+                Log.d("IKL", "onClick: Button pressed");
             }
         });
     }

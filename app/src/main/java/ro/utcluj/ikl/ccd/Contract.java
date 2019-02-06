@@ -11,6 +11,7 @@ class Contract {
     static final String mLoginSettings="loginSettings";
     static final String mLogin="login";
     static final String mDashBoard="dashboard";
+    static final String mHostsDash="hostsDash";
 
 
 

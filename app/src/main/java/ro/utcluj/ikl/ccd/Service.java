@@ -6,9 +6,12 @@ import retrofit2.http.POST;
 
 public interface Service {
 
-    @POST("zabbix/api_jsonrpc.php")
+    @POST("api_jsonrpc.php")
     Call<LoginResponse> getLoginResponse(@Body LoginBoddy body);
 
-    @POST("zabbix/api_jsonrpc.php")
+    @POST("api_jsonrpc.php")
     Call<ListResponse> getEventList(@Body LoginBoddy body);
+
+    @POST("api_jsonrpc.php")
+    Call<HostResponse> getHostResponse(@Body LoginBoddy body);
 }

@@ -1,13 +1,21 @@
 package ro.utcluj.ikl.ccd;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.TintTypedArray;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class EventListAdaptor extends RecyclerView.Adapter<EventListAdaptor.MyViewHolder> {
@@ -30,8 +38,33 @@ public class EventListAdaptor extends RecyclerView.Adapter<EventListAdaptor.MyVi
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
+        String mSeverity;
+        String mTitle;
+        long mUnixTimeStamp;
+        String mResolv;
+
+        //holder.mDetails.setText(mList.getmResponseList().get(i).getmClock());
         holder.mName.setText(mList.getmResponseList().get(i).getmName());
-        holder.mDetails.setText(mList.getmResponseList().get(i).getmClock());
+        mSeverity = mList.getmResponseList().get(i).getmSeverity();
+        mResolv = mList.getmResponseList().get(i).getmR_clock();
+
+
+        mUnixTimeStamp = Long.valueOf(mList.getmResponseList().get(i).getmClock());
+        Date date = new java.util.Date(mUnixTimeStamp*1000L);
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+        sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
+        holder.mDetails.setText(sdf.format(date));
+
+
+        switch (mSeverity){
+            case "1" : holder.mImageView.setImageResource(R.drawable.ic_info_black_24dp);
+                    break;
+            case "5" : holder.mImageView.setImageResource(R.drawable.ic_cancel_black_24dp);
+                    break;
+            default: holder.mImageView.setImageResource(R.drawable.ic_warning_black_24dp);
+                    break;
+        }
+        Log.d("IKLtest", "onBindViewHolder: " + mResolv);
     }
 
     @Override
@@ -44,6 +77,7 @@ public class EventListAdaptor extends RecyclerView.Adapter<EventListAdaptor.MyVi
         private TextView mName;
         private TextView mDetails;
         private ImageView mImageView;
+        private String mSeverity;
 
         public MyViewHolder(View view) {
             super(view);

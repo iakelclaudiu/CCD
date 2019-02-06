@@ -19,32 +19,32 @@ public class ListResponseItem {
     @SerializedName("clock")
     private String mClock;
 
-    @SerializedName("value")
-    private String mValue;
-
-    @SerializedName("acknowledged")
-    private String mAcknowledged;
-
     @SerializedName("ns")
     private String mNs;
+
+    @SerializedName("r_eventid")
+    private String mR_eventit;
+
+    @SerializedName("r_clock")
+    private String mR_clock;
+
+    @SerializedName("r_ns")
+    private String mR_ns;
+
+    @SerializedName("correlationid")
+    private String mCorrelationid;
+
+    @SerializedName("userid")
+    private String mUserid;
 
     @SerializedName("name")
     private String mName;
 
+    @SerializedName("acknowledged")
+    private String mAcknowledged;
+
     @SerializedName("severity")
     private String mSeverity;
-
-    @SerializedName("r_eventid")
-    private String mREventId;
-
-    @SerializedName("c_eventid")
-    private String mCEventId;
-
-    @SerializedName("correlationid")
-    private String mCorrelationId;
-
-    @SerializedName("userid")
-    private String mUserId;
 
     @SerializedName("suppressed")
     private int mSuppressed;
@@ -89,28 +89,52 @@ public class ListResponseItem {
         this.mClock = mClock;
     }
 
-    public String getmValue() {
-        return mValue;
-    }
-
-    public void setmValue(String mValue) {
-        this.mValue = mValue;
-    }
-
-    public String getmAcknowledged() {
-        return mAcknowledged;
-    }
-
-    public void setmAcknowledged(String mAcknowledged) {
-        this.mAcknowledged = mAcknowledged;
-    }
-
     public String getmNs() {
         return mNs;
     }
 
     public void setmNs(String mNs) {
         this.mNs = mNs;
+    }
+
+    public String getmR_eventit() {
+        return mR_eventit;
+    }
+
+    public void setmR_eventit(String mR_eventit) {
+        this.mR_eventit = mR_eventit;
+    }
+
+    public String getmR_clock() {
+        return mR_clock;
+    }
+
+    public void setmR_clock(String mR_clock) {
+        this.mR_clock = mR_clock;
+    }
+
+    public String getmR_ns() {
+        return mR_ns;
+    }
+
+    public void setmR_ns(String mR_ns) {
+        this.mR_ns = mR_ns;
+    }
+
+    public String getmCorrelationid() {
+        return mCorrelationid;
+    }
+
+    public void setmCorrelationid(String mCorrelationid) {
+        this.mCorrelationid = mCorrelationid;
+    }
+
+    public String getmUserid() {
+        return mUserid;
+    }
+
+    public void setmUserid(String mUserid) {
+        this.mUserid = mUserid;
     }
 
     public String getmName() {
@@ -121,44 +145,20 @@ public class ListResponseItem {
         this.mName = mName;
     }
 
+    public String getmAcknowledged() {
+        return mAcknowledged;
+    }
+
+    public void setmAcknowledged(String mAcknowledged) {
+        this.mAcknowledged = mAcknowledged;
+    }
+
     public String getmSeverity() {
         return mSeverity;
     }
 
     public void setmSeverity(String mSeverity) {
         this.mSeverity = mSeverity;
-    }
-
-    public String getmREventId() {
-        return mREventId;
-    }
-
-    public void setmREventId(String mREventId) {
-        this.mREventId = mREventId;
-    }
-
-    public String getmCEventId() {
-        return mCEventId;
-    }
-
-    public void setmCEventId(String mCEventId) {
-        this.mCEventId = mCEventId;
-    }
-
-    public String getmCorrelationId() {
-        return mCorrelationId;
-    }
-
-    public void setmCorrelationId(String mCorrelationId) {
-        this.mCorrelationId = mCorrelationId;
-    }
-
-    public String getmUserId() {
-        return mUserId;
-    }
-
-    public void setmUserId(String mUserId) {
-        this.mUserId = mUserId;
     }
 
     public int getmSuppressed() {
