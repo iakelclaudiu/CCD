@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hosts"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212121">
+
+    <LinearLayout
+        android:id="@+id/hostsTopP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/hostsMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_menu_black_24dp" />
+
+        <TextView
+            android:id="@+id/hostsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Hosts"
+            android:textAlignment="center"
+            android:textSize="26dp"
+            android:textColor="@android:color/white"/>
+
+        <ImageButton
+            android:id="@+id/hostsRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_autorenew_black_24dp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hostsRecycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/hostsBotP"
+        android:layout_below="@id/hostsTopP"/>
+
+    <LinearLayout
+        android:id="@+id/hostsBotP"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/hostsProblemsDash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Problems" />
+
+        <Button
+            android:id="@+id/hostsHostsDash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hosts" />
+
+        <Button
+            android:id="@+id/hostsHistoryDash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="History" />
+    </LinearLayout>
+</RelativeLayout>
