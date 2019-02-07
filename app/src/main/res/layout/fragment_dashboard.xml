@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121">
+    android:background="@drawable/gradient">
 
     <LinearLayout
         android:id="@+id/problemsTopP"
@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_weight="0"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_menu_black_24dp" />
+            app:srcCompat="@drawable/ic_lock_while_24dp" />
 
         <TextView
             android:id="@+id/problemsTitle"
@@ -46,7 +46,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/problemsBotP"
-        android:layout_below="@id/problemsTopP"/>
+        android:layout_below="@id/problemsTopP"
+        />
 
     <LinearLayout
         android:id="@+id/problemsBotP"

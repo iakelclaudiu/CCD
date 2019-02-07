@@ -24,21 +24,18 @@ public class ServiceImpl {
     }
 
     void logIn(String username, String password){
-        Log.d("IKLtest", "logIn: im at start" );
         LoginBoddy<Params> body=new LoginBoddy();
         Params params=new Params();
         body.setmMethod("user.login");
         body.setmParams(params);
         body.getmParams().setmPassword(password);
         body.getmParams().setmUser(username);
-        Log.d("IKLtest", "logIn: i made the req" + body );
 
         Call<LoginResponse> response=RetrofitUtils.getRetrofitUtilis().getApiInterface().getLoginResponse(body);
         response.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if(response.isSuccessful()){
-                    Log.d("IKLtest", "onResponse: some response here");
                     ClientManager.getManager().setSessionKey(response.body().getResult());
                     getList();
                 }else {
@@ -50,13 +47,12 @@ public class ServiceImpl {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 t.printStackTrace();
                 Navigator.getInstance().showLogin();
-                Log.d("IKLtest", "onFailure: something failed here" + call);
             }
         });
 
     }
 
-    private void getList(){
+    public void getList(){
         LoginBoddy<ListRequestParams> body=new LoginBoddy();
         body.setmMethod("problem.get");
         body.setmAuth(ClientManager.getManager().getSessionKey());
@@ -66,7 +62,7 @@ public class ServiceImpl {
         params.setmRecent("true");
         String[] sorted={"eventid"};
         params.setmSortedField(sorted);
-        params.setmSortOrder("desc");
+        params.setmSortOrder("DESC");
         body.setmParams(params);
 
         Call<ListResponse> response=RetrofitUtils.getRetrofitUtilis().getApiInterface().getEventList(body);
@@ -82,7 +78,8 @@ public class ServiceImpl {
 
             @Override
             public void onFailure(Call<ListResponse> call, Throwable t) {
-
+                t.printStackTrace();
+                Navigator.getInstance().showLogin();
             }
         });
     }
@@ -107,9 +104,38 @@ public class ServiceImpl {
 
             @Override
             public void onFailure(Call<HostResponse> call, Throwable t) {
+                t.printStackTrace();
+                Navigator.getInstance().showLogin();
+            }
+        });
+
+    }
+
+    public void logout(){
+        LoginBoddy<Logout> body = new LoginBoddy();
+        body.setmMethod("user.logout");
+        body.setmAuth(ClientManager.getManager().getSessionKey());
+        Logout params = new Logout();
+        String[] empty={};
+        params.setmParams(empty);
+        body.setmParams(params);
+
+        Call<LogoutResponse> response= RetrofitUtils.getRetrofitUtilis().getApiInterface().getLogoutRespons(body);
+        response.enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if(response.isSuccessful()){
+                    Navigator.getInstance().showLogin();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
 
             }
         });
+
+
 
     }
 

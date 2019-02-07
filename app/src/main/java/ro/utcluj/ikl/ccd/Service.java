@@ -14,4 +14,7 @@ public interface Service {
 
     @POST("api_jsonrpc.php")
     Call<HostResponse> getHostResponse(@Body LoginBoddy body);
+
+    @POST("api_jsonrpc.php")
+    Call<LogoutResponse> getLogoutRespons(@Body LoginBoddy boddy);
 }

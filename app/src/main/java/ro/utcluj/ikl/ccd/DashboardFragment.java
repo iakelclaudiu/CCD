@@ -1,5 +1,6 @@
 package ro.utcluj.ikl.ccd;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -36,13 +38,46 @@ public class DashboardFragment extends Fragment {
         recycler.setLayoutManager(layoutManager);
         recycler.setAdapter(new EventListAdaptor());
 
-        Button hosts = getActivity().findViewById(R.id.problmesHostsDash);
-        hosts.setOnClickListener(view1 -> {
-                Toast.makeText(getActivity(), "Going to Hosts", Toast.LENGTH_SHORT).show();
-                ServiceImpl implementation = new ServiceImpl();
-                implementation.getHosts();
+
+
+        ImageButton logout = getActivity().findViewById(R.id.problemsMenu);
+        logout.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Logged out", Toast.LENGTH_LONG).show();
+            ServiceImpl implementation = new ServiceImpl();
+            implementation.logout();
+
+            SharedPreferences mSharedPrefs;
+            mSharedPrefs = getActivity().getSharedPreferences(Contract.mLoginSaves, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mSharedPrefs.edit();
+            editor.putBoolean(Contract.mAutoLogin,false);
+            editor.apply();
+            Navigator.getInstance().showLogin();
+
         });
 
+        ImageButton refresh = getActivity().findViewById(R.id.problemsRefresh);
+        refresh.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+            ServiceImpl implementation = new ServiceImpl();
+            implementation.getList();
+        });
+
+        Button problems = getActivity().findViewById(R.id.problemsProblemsDash);
+        problems.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Already here", Toast.LENGTH_SHORT).show();
+        });
+
+        Button hosts = getActivity().findViewById(R.id.problmesHostsDash);
+        hosts.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Going to Hosts", Toast.LENGTH_SHORT).show();
+            ServiceImpl implementation = new ServiceImpl();
+            implementation.getHosts();
+        });
+
+        Button history = getActivity().findViewById(R.id.problmesHistoryDash);
+        history.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Not yet implemented!", Toast.LENGTH_LONG).show();
+        });
        // Log.d("IKLTest", "onBindViewHolder: " + recycler.getAdapter().getItemCount());
 
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class EventListAdaptor extends RecyclerView.Adapter<EventListAdaptor.MyVi
         sdf.setTimeZone(java.util.TimeZone.getTimeZone("GMT+2"));
         holder.mDetails.setText(sdf.format(date));
 
+        AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F);
+        alpha.setDuration(0); // Make animation instant
+        alpha.setFillAfter(true); // Tell it to persist after the animation ends
 
         switch (mSeverity){
             case "1" : holder.mImageView.setImageResource(R.drawable.ic_info_black_24dp);
@@ -63,6 +67,11 @@ public class EventListAdaptor extends RecyclerView.Adapter<EventListAdaptor.MyVi
                     break;
             default: holder.mImageView.setImageResource(R.drawable.ic_warning_black_24dp);
                     break;
+        }
+        if(!mResolv.equals("0")){
+            holder.mImageView.setImageResource(R.drawable.ic_check_circle_black_24dp);
+            holder.mImageView.startAnimation(alpha);
+
         }
         Log.d("IKLtest", "onBindViewHolder: " + mResolv);
     }
